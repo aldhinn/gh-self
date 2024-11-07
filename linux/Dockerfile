@@ -29,7 +29,14 @@ RUN curl -o actions-runner-linux-x64.tar.gz -L \
 # Transfer to a smaller image base to reduce final image size.
 FROM alpine:latest as dist
 
+# Create a user for the runner
+RUN useradd -m github
 # Create home directory.
 RUN mkdir -p /home/github
+# Change the ownership of the directory to the runner user.
+RUN chown -R github:github /home/github
+
 # Copy the bundle to dist.
 COPY --from=download /home/github/actions-runner-linux-x64.tar.gz /home/github
+# Change the ownership of the entry point to the runner user.
+RUN chown -R github:github /home/github/actions-runner-linux-x64.tar.gz
