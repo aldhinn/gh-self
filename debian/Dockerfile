@@ -32,8 +32,6 @@ RUN apt-get update
 # Install necessary dependencies.
 RUN apt-get install -y sudo
 RUN apt-get install -y --reinstall ca-certificates
-# Remove cached packages.
-RUN rm -rf /var/lib/apt/lists/*
 
 # Add github user to sudoers.
 RUN echo "github ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
@@ -46,6 +44,8 @@ RUN tar xzf ./actions-runner-linux.tar.gz \
 
 # Install remaining dotnet dependencies.
 RUN sudo /home/github/bin/installdependencies.sh
+# Remove cached packages.
+RUN sudo rm -rf /var/lib/apt/lists/*
 
 LABEL source_repository="https://github.com/aldhinn/gh-self"
 
