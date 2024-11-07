@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  gh-self-amd64-debian:
+    image: gh-self:amd64-debian
+    container_name: gh-self-amd64-debian
+    volumes:
+      - gh-self-amd64-debian-data:/home/github:rw
+      - ./GITHUB_REPO_FILE:/run/secrets/GITHUB_REPO_FILE:ro
+      - ./TOKEN_VALUE_FILE:/run/secrets/TOKEN_VALUE_FILE:ro
+
+volumes:
+  gh-self-amd64-debian-data:
