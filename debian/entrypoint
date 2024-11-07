@@ -3,25 +3,23 @@
 # Exit on error
 set -e
 
-# Check existence of secret files.
-if [ ! -f "/run/secrets/GITHUB_REPO_FILE" ]; then
-    echo "Error: secret file not mapped to /run/secrets/GITHUB_REPO_FILE"
-    exit -1
-fi
-if [ ! -f "/run/secrets/TOKEN_VALUE_FILE" ]; then
-    echo "Error: secret file not mapped to /run/secrets/TOKEN_VALUE_FILE"
-    exit -1
-fi
-
-# Extract github repository.
-GITHUB_REPO=$(cat /run/secrets/GITHUB_REPO_FILE)
-# Extract token value.
-TOKEN_VALUE=$(cat /run/secrets/TOKEN_VALUE_FILE)
-
 # Check if the runner is already configured
-if [ -f ".runner" ]; then
-    echo "GitHub runner is already configured. Skipping configuration."
-else
+if [ ! -f ".runner" ]; then
+    # Check existence of secret files.
+    if [ ! -f "/run/secrets/GITHUB_REPO_FILE" ]; then
+        echo "Error: secret file not mapped to /run/secrets/GITHUB_REPO_FILE"
+        exit -1
+    fi
+    if [ ! -f "/run/secrets/TOKEN_VALUE_FILE" ]; then
+        echo "Error: secret file not mapped to /run/secrets/TOKEN_VALUE_FILE"
+        exit -1
+    fi
+
+    # Extract github repository.
+    GITHUB_REPO=$(cat /run/secrets/GITHUB_REPO_FILE)
+    # Extract token value.
+    TOKEN_VALUE=$(cat /run/secrets/TOKEN_VALUE_FILE)
+
     # Register the runner with GitHub
     ./config.sh --unattended --url $GITHUB_REPO --token $TOKEN_VALUE
 fi
