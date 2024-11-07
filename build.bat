@@ -15,12 +15,12 @@ if %errorlevel% neq 0 (
 set "script_dir=%~dp0"
 
 @rem Build amd64 linux base image.
-%docker_exe% build -t gh-self:amd64-linux-base --build-arg RUNNER_VERSION=2.320.0 ^
+%docker_exe% build -t aldhinn/gh-self:amd64-linux-base --build-arg RUNNER_VERSION=2.320.0 ^
     --build-arg GH_PLATFORM=x64 %script_dir%\linux
 
 @rem Build amd64 debian image.
-%docker_exe% build -t gh-self:amd64-debian ^
-    --build-arg BUNDLE_IMAGE=gh-self:amd64-linux-base %script_dir%\debian
+%docker_exe% build -t aldhinn/gh-self:amd64-debian ^
+    --build-arg BUNDLE_IMAGE=aldhinn/gh-self:amd64-linux-base %script_dir%\debian
 
 endlocal
 @rem End of line.

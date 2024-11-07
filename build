@@ -11,9 +11,9 @@ fi
 script_dir="$(dirname "$(readlink -f "$0")")"
 
 # Build amd64 linux base image.
-docker build -t gh-self:amd64-linux-base --build-arg RUNNER_VERSION=2.320.0 \
+docker build -t aldhinn/gh-self:amd64-linux-base --build-arg RUNNER_VERSION=2.320.0 \
     --build-arg GH_PLATFORM=x64 $script_dir/linux
 
 # Build amd64 debian image.
-docker build -t gh-self:amd64-debian \
-    --build-arg BUNDLE_IMAGE=gh-self:amd64-linux-base $script_dir/debian
+docker build -t aldhinn/gh-self:amd64-debian \
+    --build-arg BUNDLE_IMAGE=aldhinn/gh-self:amd64-linux-base $script_dir/debian
