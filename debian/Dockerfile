@@ -47,4 +47,6 @@ RUN tar xzf ./actions-runner-linux.tar.gz \
 # Install remaining dotnet dependencies.
 RUN sudo /home/github/bin/installdependencies.sh
 
+LABEL source_repository="https://github.com/aldhinn/gh-self"
+
 ENTRYPOINT [ "/home/github/entrypoint" ]

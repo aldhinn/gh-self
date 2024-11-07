@@ -40,3 +40,5 @@ RUN chown -R github:github /home/github
 COPY --from=download /home/github/actions-runner-linux.tar.gz /home/github
 # Change the ownership of the entry point to the runner user.
 RUN chown -R github:github /home/github/actions-runner-linux.tar.gz
+
+LABEL source_repository="https://github.com/aldhinn/gh-self"
