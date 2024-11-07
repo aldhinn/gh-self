@@ -23,9 +23,9 @@ RUN chown -R github:github /home/github/entrypoint
 RUN chmod +x /home/github/entrypoint
 
 # Copy the bundle to dist.
-COPY --from=retrieve-bundle /home/github/actions-runner-linux-x64.tar.gz /home/github
+COPY --from=retrieve-bundle /home/github/actions-runner-linux.tar.gz /home/github
 # Change the ownership of the entry point to the runner user.
-RUN chown -R github:github /home/github/actions-runner-linux-x64.tar.gz
+RUN chown -R github:github /home/github/actions-runner-linux.tar.gz
 
 # Get updates.
 RUN apt-get update
@@ -41,8 +41,8 @@ RUN echo "github ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER github
 
 # Download and extract the GitHub Actions runner.
-RUN tar xzf ./actions-runner-linux-x64.tar.gz \
-    && rm -f ./actions-runner-linux-x64.tar.gz
+RUN tar xzf ./actions-runner-linux.tar.gz \
+    && rm -f ./actions-runner-linux.tar.gz
 
 # Install remaining dotnet dependencies.
 RUN sudo /home/github/bin/installdependencies.sh

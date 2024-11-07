@@ -23,7 +23,7 @@ WORKDIR /home/github
 USER github
 
 # Download and extract the GitHub Actions runner bundle.
-RUN curl -o actions-runner-linux-x64.tar.gz -L \
+RUN curl -o actions-runner-linux.tar.gz -L \
     "https://github.com/actions/runner/releases/download/v$RUNNER_VERSION/actions-runner-linux-$GH_PLATFORM-$RUNNER_VERSION.tar.gz"
 
 # Transfer to a smaller image base to reduce final image size.
@@ -37,6 +37,6 @@ RUN mkdir -p /home/github
 RUN chown -R github:github /home/github
 
 # Copy the bundle to dist.
-COPY --from=download /home/github/actions-runner-linux-x64.tar.gz /home/github
+COPY --from=download /home/github/actions-runner-linux.tar.gz /home/github
 # Change the ownership of the entry point to the runner user.
-RUN chown -R github:github /home/github/actions-runner-linux-x64.tar.gz
+RUN chown -R github:github /home/github/actions-runner-linux.tar.gz
