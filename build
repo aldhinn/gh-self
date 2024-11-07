@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Run this if you're using a posix compliant system.
+
+if [ ! command -v docker > /dev/null 2>&1 ]; then
+    echo "Please install docker in your system."
+    exit -1
+fi
+
+# The directory where this script exists.
+script_dir="$(dirname "$(readlink -f "$0")")"
