@@ -44,11 +44,6 @@ jobs:
         docker build -t ${{ env.IMAGE_NAME }}:amd64-linux-base --build-arg \
         RUNNER_VERSION=2.320.0 --build-arg GH_PLATFORM=x64 linux
 
-    # Conditionally push the amd64 linux base image only if login succeeded
-    - name: Push amd64 linux base image.
-      if: ${{ steps.docker_login.outcome == 'success' }}
-      run: docker push ${{ env.IMAGE_NAME }}:amd64-linux-base
-
     # Build the amd64 debian image.
     - name: Build amd64 debian image.
       run: |
