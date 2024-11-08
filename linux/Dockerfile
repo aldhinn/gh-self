@@ -23,7 +23,7 @@ WORKDIR /home/github
 USER github
 
 # Download and extract the GitHub Actions runner bundle.
-RUN curl -o actions-runner-linux.tar.gz -L \
+RUN curl --retry 3 -o actions-runner-linux.tar.gz -L \
     "https://github.com/actions/runner/releases/download/v$RUNNER_VERSION/actions-runner-linux-$GH_PLATFORM-$RUNNER_VERSION.tar.gz"
 
 # Transfer to a smaller image base to reduce final image size.
