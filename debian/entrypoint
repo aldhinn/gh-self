@@ -21,7 +21,14 @@ if [ ! -f ".runner" ]; then
     TOKEN_VALUE=$(cat /run/secrets/TOKEN_VALUE_FILE)
 
     # Register the runner with GitHub
-    ./config.sh --unattended --url $GITHUB_REPO --token $TOKEN_VALUE
+    if [ -f "/run/secrets/GITHUB_RUNNER_NAME_FILE" ]; then
+        # Extract the name of the runner specified.
+        GITHUB_RUNNER_NAME=$(cat /run/secrets/GITHUB_RUNNER_NAME_FILE)
+        ./config.sh --unattended --url $GITHUB_REPO --token $TOKEN_VALUE --name $GITHUB_RUNNER_NAME
+    else
+        # Simply configure with the default name.
+        ./config.sh --unattended --url $GITHUB_REPO --token $TOKEN_VALUE
+    fi
 fi
 
 # Run the runner

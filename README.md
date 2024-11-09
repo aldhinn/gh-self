@@ -8,13 +8,13 @@ gh-self
 
 [![CI](https://github.com/aldhinn/gh-self/actions/workflows/ci.yaml/badge.svg)](https://github.com/aldhinn/gh-self/actions/workflows/ci.yaml)
 
-**gh-runner** is a set of open source docker images for running ```GitHub Actions``` workflows.
+**gh-self** is a set of open source docker images for running ```GitHub Actions``` workflows.
 
 ## 🚀 Usage
 
 This image provides a self-hosted runner for GitHub Actions. When setting up and running the container, you need to map local files containing your GitHub repository URL and runner registration token to the appropriate secrets within the container.
 
-### 🛠️ Prerequisites
+### 📝 Preparations
 
 Before using this self-hosted runner, make sure you have:
 
@@ -33,9 +33,9 @@ Before using this self-hosted runner, make sure you have:
 
 1. **Prepare the required files:**
    - Create a file `GITHUB_REPO_FILE` containing the URL to your GitHub repository (e.g., `https://github.com/your-org/your-repo`).
-   - Create a file `TOKEN_VALUE_FILE` containing the GitHub runner registration token generated from the repository’s runner setup page.
+   - Create a file `TOKEN_VALUE_FILE` containing the GitHub runner registration token stored [earlier](#-preparations).
 
-3. **Run the Docker container:**
+2. **Run the Docker container:**
 
    When running the Docker container, make sure to map the local files (`GITHUB_REPO_FILE` and `TOKEN_VALUE_FILE`) to the correct paths inside the container where GitHub Actions will look for them. Use the following command:
 
@@ -46,3 +46,12 @@ Before using this self-hosted runner, make sure you have:
      aldhinn/gh-self:amd64-debian
    ```
    (The example above used the tag ```amd64-debian``` but choose the ones you'd like from [here](https://hub.docker.com/r/aldhinn/gh-self/tags).)
+
+   Optionally, you can also specify the name of the runner by storing it to `/run/secrets/GITHUB_RUNNER_NAME_FILE`:
+   ```bash
+   docker run -d --name github-actions-self-hosed-runner \
+     -v /local/path/to/GITHUB_REPO_FILE:/run/secrets/GITHUB_REPO_FILE \
+     -v /local/path/to/TOKEN_VALUE_FILE:/run/secrets/TOKEN_VALUE_FILE \
+     -v /local/path/to/GITHUB_RUNNER_NAME_FILE:/run/secrets/GITHUB_RUNNER_NAME_FILE \
+     aldhinn/gh-self:amd64-debian
+   ```
