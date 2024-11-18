@@ -2,7 +2,6 @@ name: publish
 
 on:
   push:
-    branches: [main]
     tags:
       - 'v*' # Triggers only for tags that start with "v"
 
