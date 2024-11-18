@@ -15,7 +15,7 @@ jobs:
 
       - name: Log in to Docker Hub
         id: docker_login
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: aldhinn
           password: ${{ secrets.DOCKER_PASSWORD }}
